@@ -1,17 +1,4 @@
 # node-okcash
-[![js-standard-style][standard-image]][standard-url]
-
-[travis-image]: https://travis-ci.org/okcashpro/node-okcash.svg?branch=master
-[travis-url]: https://travis-ci.org/okcashpro/node-okcash
-
-[npm-image]: https://img.shields.io/npm/v/okcash.svg?style=flat
-[npm-url]: https://npmjs.org/package/okcash
-
-[downloads-image]: https://img.shields.io/npm/dm/okcash.svg?style=flat
-[downloads-url]: https://npmjs.org/package/okcash
-
-[standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat
-[standard-url]: http://standardjs.com
 
 node-okcash is a simple wrapper for the Okcash client's JSON-RPC API.
 
