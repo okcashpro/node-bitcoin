@@ -1,14 +1,22 @@
 {
-  "name": "bitcoin",
-  "description": "Communicate with bitcoind via JSON-RPC",
-  "version": "3.0.1",
+  "name": "okcash",
+  "description": "Communicate with okcashd via JSON-RPC",
+  "version": "3.0.5",
   "main": "lib/index.js",
   "keywords": [
-    "bitcoin",
-    "rpc"
+    "okcash",
+    "rpc",
+    "decentralized",
+    "chat",
+    "messaging",
+    "framework",
+    "IoT",
+    "Internet of Things",
+    "Marketplace"
   ],
-  "author": "Bill Casarin <bill@casarin.ca> (jb55.com)",
+  "author": "toshi <devteam@okcash.co> (okcash.co)",
   "contributors": [
+    "Bill Casarin <bill@casarin.ca>",
     "Sean Lavine <sean@eternalrise.com>"
   ],
   "dependencies": {},
@@ -20,7 +28,7 @@
   "optionalDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git://github.com/freewil/node-bitcoin.git"
+    "url": "git://github.com/okcashpro/node-okcash.git"
   },
   "engines": {
     "node": ">= 0.10.0"
@@ -30,9 +38,9 @@
     "test": "make test"
   },
   "bugs": {
-    "url": "https://github.com/freewil/node-bitcoin/issues"
+    "url": "https://github.com/okcashpro/node-okcash/issues"
   },
-  "homepage": "https://github.com/freewil/node-bitcoin#readme",
+  "homepage": "https://github.com/okcashpro/node-okcash#readme",
   "directories": {
     "test": "test"
   },

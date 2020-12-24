@@ -1,48 +1,98 @@
-# node-bitcoin
-[![travis][travis-image]][travis-url]
+# node-okcash
 [![npm][npm-image]][npm-url]
 [![downloads][downloads-image]][downloads-url]
 [![js-standard-style][standard-image]][standard-url]
 
-[travis-image]: https://travis-ci.org/freewil/node-bitcoin.svg?branch=master
-[travis-url]: https://travis-ci.org/freewil/node-bitcoin
+[travis-image]: https://travis-ci.org/okcashpro/node-okcash.svg?branch=master
+[travis-url]: https://travis-ci.org/okcashpro/node-okcash
 
-[npm-image]: https://img.shields.io/npm/v/bitcoin.svg?style=flat
-[npm-url]: https://npmjs.org/package/bitcoin
+[npm-image]: https://img.shields.io/npm/v/okcash.svg?style=flat
+[npm-url]: https://npmjs.org/package/okcash
 
-[downloads-image]: https://img.shields.io/npm/dm/bitcoin.svg?style=flat
-[downloads-url]: https://npmjs.org/package/bitcoin
+[downloads-image]: https://img.shields.io/npm/dm/okcash.svg?style=flat
+[downloads-url]: https://npmjs.org/package/okcash
 
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat
 [standard-url]: http://standardjs.com
 
-node-bitcoin is a simple wrapper for the Bitcoin client's JSON-RPC API.
+node-okcash is a simple wrapper for the Okcash client's JSON-RPC API.
 
-If starting a new project, I highly encourage you to take a look at the more modern [bitcoin-core](https://github.com/seegno/bitcoin-core), which features:
-* ES6 support
-* optional promise support
-* support for newer REST API, in addition to RPC methods
+## Okcash
+Okcash is a decentralized network built on the framework of Bitcoin. It provides free, uncensorable end-to-end encrypted messaging and also includes a more anonymous cryptocurrency named Okcash.
 
-The API is equivalent to the API document [here](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_Calls_list).
-The methods are exposed as lower camelcase methods on the `bitcoin.Client`
+## Install and run daemon
+
+You MUST have the okcashd daemon running, else your NodeJS app will return a connection error. Please for the sake of security do this on the same machine that the code will be running on. You can start the okcash daemon with the following command.
+
+Linux:
+`./okcashd -daemon`
+
+Windows:
+`okcashd.exe -daemon`
+
+A **daemon** is a process that runs in the background after you've started it.
+
+You can download Okcash's graphical interface and daemon for Ubuntu [here](https://okcash.co/gettingstarted).#participate).
+We highly recommend building the daemon from source, this option works best for other linux flavours such as Debian. You can find detailed instructions [here](https://okcash.co#linux-daemon-from-source-okcashd)
+
+For numerous security reasons you'll get an error when first running the okcashd daemon. The error will instruct you to create a okcash.conf file in your corresponding directory:
+
+OS | PATH
+------------ | -------------
+Windows | %appdata%\Okcash
+OSX  | ~/Library/Application Support/Okcash/
+Linux  | ~/.okcash/
+
+Create the file `okcash.conf`, the linux command line instructions are:
+```shell
+cd ~/.okcash/
+nano okcash.conf
+```
+
+and insert the following, make sure to change USERNAME and PASSWORD to something secure:
+```json
+server=1
+rpcuser=USERNAME
+rpcpassword=PASSWORD
+```
+## Install for NodeJS
+
+`npm install okcash`
+
+## API
+The API is equivalent to the API document [here](https://okcash.co/#participate).
+The documentation on the website is not yet up to date (not all Bitcoin JSON RPC commands are valid), you're better off checking the actual client or in the file `/lib/commands.js`.
+
+The methods are exposed as lower camelcase methods on the `okcash.Client`
 object, or you may call the API directly using the `cmd` method.
-
-## Install
-
-`npm install bitcoin`
 
 ## Examples
 
 ### Create client
 ```js
 // all config options are optional
-var client = new bitcoin.Client({
+var client = new okcash.Client({
   host: 'localhost',
-  port: 8332,
+  port: 6969,
   user: 'username',
   pass: 'password',
   timeout: 30000
 });
+```
+
+### Get all unread messages
+*Note:* Does not work with GUI wallet, it automatically marks the message as read. Use in combination with okcashd.
+```js
+  client.smsgInbox('unread', function(err, result, resHeaders) {
+    if (err) return console.log(err);
+    console.log(JSON.stringify(result));
+    for(var i = 0; i < +result.result; i++){
+        var sender = result.messages[i].from;
+        var receiver = result.messages[i].to;
+        var text = result.messages[i].text;
+    
+    }
+  });
 ```
 
 ### Get balance across all accounts with minimum confirmations of 6
@@ -78,27 +128,3 @@ client.cmd(batch, function(err, address, resHeaders) {
 });
 ```
 
-## SSL
-See [Enabling SSL on original client](https://en.bitcoin.it/wiki/Enabling_SSL_on_original_client_daemon).
-
-If you're using this to connect to bitcoind across a network it is highly
-recommended to enable `ssl`, otherwise an attacker may intercept your RPC credentials
-resulting in theft of your bitcoins.
-
-When enabling `ssl` by setting the configuration option to `true`, the `sslStrict`
-option (verifies the server certificate) will also be enabled by default. It is
-highly recommended to specify the `sslCa` as well, even if your bitcoind has
-a certificate signed by an actual CA, to ensure you are connecting
-to your own bitcoind.
-
-```js
-var client = new bitcoin.Client({
-  host: 'localhost',
-  port: 8332,
-  user: 'username',
-  pass: 'password',
-  ssl: true,
-  sslStrict: true,
-  sslCa: fs.readFileSync(__dirname + '/myca.cert')
-});
-```

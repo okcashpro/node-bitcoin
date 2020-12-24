@@ -7,12 +7,12 @@ language: node_js
 # See http://docs.travis-ci.com/user/customizing-the-build/#Skipping-the-Installation-Step
 install: true
 
-services:
-  - docker
+#services:
+##  - docker
 
-before_script:
-  - git submodule update --init
-  - docker build -t node-bitcoin .
+###before_script:
+####  - git submodule update --init
+#  - docker build -t node-okcash .
 
-script:
-  - docker run node-bitcoin
+#script:
+#  - docker run node-okcash
