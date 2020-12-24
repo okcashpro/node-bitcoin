@@ -1,6 +1,4 @@
 # node-okcash
-[![npm][npm-image]][npm-url]
-[![downloads][downloads-image]][downloads-url]
 [![js-standard-style][standard-image]][standard-url]
 
 [travis-image]: https://travis-ci.org/okcashpro/node-okcash.svg?branch=master
